@@ -1,0 +1,27 @@
+from qiskit import *
+import numpy as np
+
+q=QuantumRegister(1)
+c=ClassicalRegister(1)
+circuit=QuantumCircuit(q,c)
+
+theta=np.pi/2
+phi=np.pi/2
+lamda=0
+
+circuit.u3(theta,phi,lamda,q)
+
+#circuit.measure(q,c)
+#print(circuit)
+
+#simulator=Aer.get_backend('qasm_simulator')
+#job=execute(circuit,simulator)
+#result=job.result()
+#output=result.get_counts()
+#print(output)
+
+simulator=Aer.get_backend('unitary_simulator')
+job=execute(circuit,simulator)
+result=job.result()
+output=result.get_unitary(circuit,decimals=3)
+print(output)
